@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 from torchvision.utils import make_grid
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from flags import *
 

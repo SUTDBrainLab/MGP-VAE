@@ -7,12 +7,9 @@ import torch
 import h5py
 
 def load_dataset():
-
 	# loading data
     if (DATASET == 'moving_mnist'):
         dataset = data_moving_mnist(DATA_PATH)
-    elif (DATASET == 'dsprites'):
-        dataset = data_dsprites(DATA_PATH)
     elif (DATASET == 'dsprites_color'):
         dataset = data_dsprites_color(DATA_PATH)
     else:

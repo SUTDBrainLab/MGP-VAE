@@ -72,7 +72,7 @@ def matrix_diag_3d(diagonal):
 	result = torch.diagonal(diagonal, dim1 = -2, dim2 = -1)
 	return result
 
-def create_path(K_L1, mu_L1):
+def create_path(K_L1, mu_L1, BATCH_SIZE=BATCH_SIZE):
 	# this function samples random paths from given GP using lower triangular matrices K_L (obtained from covariance matrices) and mean mu_L
 	
 	inc_L1 = torch.randn(BATCH_SIZE, NUM_FRAMES, NDIM).cuda()
@@ -173,7 +173,10 @@ class Encoder(nn.Module):
 		
 		muL1 = self.MLP_3(x).view(-1, NUM_FRAMES, NDIM)
 		
-		X1 = create_path_rho(KL1, muL1, BATCH_SIZE)
+		if(KEEP_RHO):
+			X1 = create_path_rho(KL1, muL1, BATCH_SIZE)
+		else:
+			X1 = create_path(KL1, muL1, BATCH_SIZE)
 
 		return X1, KL1, muL1, det_q1
  
@@ -229,4 +232,19 @@ class Decoder(nn.Module):
 		x = self.my_tanh(self.conv7(x))
 		x = (255*x).view(BATCH_SIZE, NUM_FRAMES, NUM_INPUT_CHANNELS, H, W)
 	
+		return x
+
+class Prediction_Model(nn.Module):
+
+	def __init__(self):
+		super(Prediction_Model, self).__init__()
+
+		self.fc1 = nn.Linear((NUM_FRAMES-1)*(NDIM), 15)
+		self.fc2 = nn.Linear(15, NDIM)
+		self.relu = nn.ReLU()
+
+	def forward(self, x):
+		x = x.view(x.size()[0], -1)
+		x = self.relu(self.fc1(x))
+		x = self.fc2(x)
 		return x

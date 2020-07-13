@@ -107,16 +107,8 @@ if (__name__ == '__main__'):
         for iteration in range(len(dataset)//BATCH_SIZE):
 
             # load a batch of videos
-            if (DATASET == 'moving_mnist'):
-                X_in = next(loader).float().cuda()
-            elif (DATASET == 'dsprites'):
-                X_in, label = next(loader)
-                X_in = X_in.float().cuda()
-            elif (DATASET == 'dsprites_color'):
-                X_in = next(loader).float().cuda()
-            else:
-                raise Exception('Invalid Dataset!')
-
+            X_in = next(loader).float().cuda()
+            
             Y_flat = X_in.view(X_in.size()[0], -1)
 
             optimizer.zero_grad()

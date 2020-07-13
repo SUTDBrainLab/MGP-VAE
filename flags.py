@@ -23,6 +23,7 @@ parser.add_argument('--fea', type=list, default=['frac_0.1', 'frac_0.9'], help="
 parser.add_argument('--zero_mean_fea', type=bool, default=False, help="Non-zero Mean for all GPs (False = zero mean)")
 parser.add_argument('--mean_fea_s', type=list, default= [-2, -2, -2, -2, -2], help="Starting Means of all Gaussian processes")
 parser.add_argument('--mean_fea_e', type=list, default= [2, 2, 2, 2, 2], help="Ending Means of all Gaussian processes")
+parser.add_argument('--keep_rho', type=bool, default= False, help="use rho for create_path fuction")
 
 parser.add_argument('--beta', type=float, default=2.0, help="coeff. of kl_loss in total_loss")
 
@@ -50,6 +51,8 @@ parser.add_argument('--max_geo_iter', type=int, default=5, help="number of maxim
 parser.add_argument('--num_samples_input', type=int, default=5, help="number of frames that the prediction network takes as input")
 parser.add_argument('--num_samples_output', type=int, default=1, help="number of frames that the prediction network gives as output")
 parser.add_argument('--latent_weight', type=float, default=0.5, help="weight of geodesic latent space loss in total geodesic prediction loss function")
+parser.add_argument('--step_size', type=float, default=0.1, help="step size for geodesic loss gradient update")
+parser.add_argument('--threshold', type=float, default=0.1, help="geodesic energy threshold")
 
 FLAGS = parser.parse_args()
 
@@ -77,8 +80,6 @@ LOAD_SAVED = FLAGS.load_saved
 # data paths
 if (FLAGS.dataset == 'moving_mnist'):
     DATA_PATH = "./data/moving_mnist/"
-elif (FLAGS.dataset == 'dsprites'):
-    DATA_PATH = './data/dsprites/trainset_dsprites_data.h5'
 elif (FLAGS.dataset == 'dsprites_color'):
     DATA_PATH = './data/dsprites/trainset_dsprites_data_color_with_motion.h5'
 elif (FLAGS.dataset == 'dsprites_color_test'):
@@ -108,6 +109,7 @@ ZERO_MEAN_FEA = FLAGS.zero_mean_fea
 FEA = FLAGS.fea
 FEA_MEAN_S = FLAGS.mean_fea_s
 FEA_MEAN_E = FLAGS.mean_fea_e
+KEEP_RHO = FLAGS.keep_rho
 
 # visualization
 NUM_POINTS_VISUALIZATION = FLAGS.num_points_visualization
@@ -118,4 +120,5 @@ MAX_GEO_ITER = FLAGS.max_geo_iter
 NUM_SAMPLE_GEO_INPUT = FLAGS.num_samples_input
 NUM_SAMPLE_GEO_OUTPUT = FLAGS.num_samples_output
 LATENT_WEIGHT = FLAGS.latent_weight
-
+STEP_SIZE = FLAGS.step_size
+THRESHOLD = FLAGS.threshold
