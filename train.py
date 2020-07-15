@@ -15,12 +15,11 @@ from torchvision.utils import save_image
 from vid_process import resize_cropped, resize_keepAR, resize_mnist
 from flags import *
 from networks import Encoder, Decoder
-
 from utils import weights_init, mse_loss, plot_image, plot_training_images
 from covariance_fns import *
 from flags import *
 from setup_priors import *
-from dataloader import data_moving_mnist, data_dsprites, data_dsprites_color
+from dataloader import *
 
 
 def KL_loss_L1_without_mean(sigma_p_inv, sigma_q, mu_q, det_p, det_q):
@@ -42,6 +41,7 @@ def KL_loss_L1(sigma_p_inv, sigma_q, mu_q, mu_p, det_p, det_q):
     return loss
 
 if (__name__ == '__main__'):
+
     # model definition
     encoder = Encoder()
     encoder.apply(weights_init)
@@ -66,10 +66,10 @@ if (__name__ == '__main__'):
     # optimizer
     optimizer = torch.optim.Adam(list(encoder.parameters()) + list(decoder.parameters()), lr = LR, betas=(BETA1, BETA2))
 
-    # training
     if torch.cuda.is_available() and not CUDA:
         print("WARNING: You have a CUDA device, so you should probably run with --cuda")
 
+    # creating directories
     if not os.path.exists('checkpoints'):
             os.makedirs('checkpoints')
 
@@ -87,6 +87,7 @@ if (__name__ == '__main__'):
 
     sigma_p_inv, det_p = setup_pz(NUM_FEA, FEA_DIM, FEA)
 
+    # creating copies of encoder-decoder objects for style transfer visualization during training
     encoder_test = Encoder()
     encoder_test.apply(weights_init)
 
@@ -149,17 +150,9 @@ if (__name__ == '__main__'):
         writer.add_scalar('KL-Divergence loss', kl_loss.data.storage().tolist()[0], epoch)
         writer.add_scalar('Image loss', img_loss.data.storage().tolist()[0], epoch)
 
-        # retrieving another batch to reconstruct for saving images
-        if (DATASET == 'moving_mnist'):
-            X_in = next(loader).float().cuda()
-        elif (DATASET == 'dsprites'):
-            X_in, label = next(loader)
-            X_in = X_in.float().cuda()
-        elif (DATASET == 'dsprites_color'):
-            X_in = next(loader).float().cuda()
-        else:
-            raise Exception('Invalid Dataset!')
-
+        # retrieving another batch to reconstruct for saving reconstructed images
+        X_in = next(loader).float().cuda()
+        
         # saving reconstructed images
         original_sample = X_in.cpu()[0, :, :, :, :]
         enc, KL1, muL1, det_q1 = encoder(X_in)

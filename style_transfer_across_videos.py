@@ -39,6 +39,7 @@ if __name__ == "__main__":
 	X1, KL1, muL1, det_q1 = encoder(video1)
 	X2, KL2, muL2, det_q2 = encoder(video2)
 
+	# save reconstructed images
 	dec_v1 = decoder(X1)
 	save_image(dec_v1.squeeze(0).transpose(2, 3), './results/style_transfer_results/recon_v1.png', nrow=NUM_FRAMES, normalize=True)
 

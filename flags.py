@@ -16,7 +16,7 @@ parser.add_argument('--image_size', type=int, default=64, help="height and width
 parser.add_argument('--num_channels', type=int, default=1, help="number of channels in the images")
 parser.add_argument('--num_frames', type=int, default=8, help="number of frames in the video")
 
-parser.add_argument('--num_dim', type=int, default=4, help="total dimension of latent space")
+parser.add_argument('--num_dim', type=int, default=2, help="total dimension of latent space")
 parser.add_argument('--num_fea', type=int, default=2, help="total number of features")
 
 parser.add_argument('--fea', type=list, default=['frac_0.1', 'frac_0.9'], help="All Gaussian processes as a list (options = frac_0.1, frac_0.9, bb, bb2, ou)")
@@ -39,8 +39,8 @@ parser.add_argument('--log_file', type=str, default='log.txt', help="text file t
 
 parser.add_argument('--load_saved', type=bool, default=False, help="flag to indicate if a saved model will be loaded")
 parser.add_argument('--start_epoch', type=int, default=1, help="flag to set the starting epoch for training")
-parser.add_argument('--end_epoch', type=int, default=10, help="flag to indicate the final epoch of training")
-parser.add_argument('--is_training', type=bool, default=False, help="flag to indicate if it is training or inference.")
+parser.add_argument('--end_epoch', type=int, default=100, help="flag to indicate the final epoch of training")
+parser.add_argument('--is_training', type=bool, default=True, help="flag to indicate if it is training or inference.")
 
 # visualization
 parser.add_argument('--num_points_visualization', type=int, default=6, help="number of videos to plot in visualization")

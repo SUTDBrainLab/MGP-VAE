@@ -47,7 +47,7 @@ def fill_triangular(vector):
 		return y
 
 	else:
-		print ("ERROR IN FILL_TRIANGULAR ,size of input is :", len(vector.size()))
+		raise Exception("ERROR in fill_triangular function, size of input is : {}".format(str(len(vector.size()))))
 
 raw_matSum = np.ones(NUM_FRAMES * (NUM_FRAMES + 1) // 2)
 matSum = torch.from_numpy(raw_matSum).float().cuda()
@@ -234,6 +234,7 @@ class Decoder(nn.Module):
 	
 		return x
 
+# model for prediction of future frames
 class Prediction_Model(nn.Module):
 
 	def __init__(self):

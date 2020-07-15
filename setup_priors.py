@@ -5,6 +5,7 @@ import numpy as np
 from covariance_fns import *
 from flags import *
 
+# returns inverse variance and determinant of latent priors
 def setup_pz(num_fea, fea_dim, fea_priors):
 
     sigmas, dets = [], []
@@ -31,6 +32,7 @@ def setup_pz(num_fea, fea_dim, fea_priors):
 
     return sigma_p_inv, det_p
 
+# set mean of prior on latent space
 def get_prior_mean(mean_fea_s, mean_fea_e):
 
     mean = torch.zeros(BATCH_SIZE, NDIM, NUM_FRAMES).cuda()

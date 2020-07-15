@@ -31,21 +31,7 @@ class data_moving_mnist:
 
 	def __getitem__(self, index):
 		return self.array[index]
-
-class data_dsprites(torch.utils.data.Dataset):
-	def __init__(self, file):
-		super(data_dsprites, self).__init__()
-		self.file = h5py.File(file, 'r')
-
-		self.n_videos = np.asarray(self.file.get('data'))
-		self.n_labels = np.asarray(self.file.get('labels'))
-
-	def __getitem__(self, index):
-		input, label = self.n_videos[index], self.n_labels[index]
-		return input.astype('float32'), label
-
-	def __len__(self):
-		return len(list(self.n_labels))
+		
 
 class data_dsprites_color(torch.utils.data.Dataset):
 	def __init__(self, file):

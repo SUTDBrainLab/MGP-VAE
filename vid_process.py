@@ -67,12 +67,3 @@ def resize_mnist(filename, h_0):
 	vid_array = np.transpose(vid_array, (3,0,1,2))			# 3 x FRAMES x H x W
 
 	return vid_array[0]
-
-if __name__ == "__main__":
-	data = np.load("/home/kermit/Data/moving_mnist/mnist_1d64_0.npz")
-	
-	arr = np.reshape(data['arr_0'], [10000, 20, 64, 64])
-	for ind in range(2):
-		plt.imshow(arr[1][ind], cmap='gray')
-		plt.show()
-

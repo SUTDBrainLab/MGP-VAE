@@ -1,5 +1,5 @@
 # this file contains code that helps visualize the latent space encodings 
-# NOTE: this is valid only when all features are kept 2-dimensional 
+# NOTE: this is valid only when all features are kept 2-dimensional (i.e. FEA_DIM == 2)
 
 import os
 from os import listdir
@@ -21,8 +21,9 @@ from dataloader import data_moving_mnist, data_dsprites, data_dsprites_color
 
 def choose_color(i):
 
-	colors = ['r', 'g', 'b', 'y', 'm', 'c']
-	# add more colors here if you wish to plot more videos
+	# size of this list should be same as number of videos to be plotted (i.e. NUM_POINTS_VISUALIZATION)
+	colors = ['r', 'g', 'b', 'y', 'm', 'c'] 
+	# Add more colors here if you wish to plot more videos
 
 	return colors[i]
 
@@ -53,10 +54,7 @@ if __name__ == "__main__":
 
 		for j in range(NUM_POINTS_VISUALIZATION):
 
-			if (DATASET == 'moving_mnist'):
-				X_in = next(loader)
-			else:
-				X_in, label = next(loader)
+			X_in = next(loader)
 			X_in = X_in.float().cuda()
 
 			X1, KL1, muL1, det_q1 = encoder(X_in)

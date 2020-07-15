@@ -14,6 +14,7 @@ from utils import weights_init
 from covariance_fns import *
 from dataloader import load_dataset
 
+# compute energy of the geodesic 
 def find_energy(z0, z1, z2):
 	z0 = z0.unsqueeze(1).data
 	z0 = Variable(z0, requires_grad = True)
@@ -28,14 +29,15 @@ def find_energy(z0, z1, z2):
 	dec = torch.transpose(dec, 1, 2)
 	
 	a2 = (decoder(torch.cat([Z_remaining, z2.view(1, NUM_SAMPLE_GEO_OUTPUT, NDIM)], 1)) - \
-	 2*decoder(torch.cat([Z_remaining, z1.view(1, NUM_SAMPLE_GEO_OUTPUT, NDIM)], 1)) + \
+	 2 * decoder(torch.cat([Z_remaining, z1.view(1, NUM_SAMPLE_GEO_OUTPUT, NDIM)], 1)) + \
 	 decoder(torch.cat([Z_remaining, z0.view(1, NUM_SAMPLE_GEO_OUTPUT, NDIM)], 1))).view(1, 1, NUM_FRAMES, H, W)
 	
 	dec.backward(a2, retain_graph=True)
 	energy = -N * z1.grad
 
 	return energy
-		
+	
+# compute gradient of energy wrt latent points
 def find_etta_i(z0, z1, z2):
 
 	z0 = z0.view(NUM_SAMPLE_GEO_OUTPUT, -1).data
@@ -49,6 +51,7 @@ def find_etta_i(z0, z1, z2):
 	etta = -dt * z1.grad
 	return etta
 
+# computes L2 norm
 def compute_norm(x):
 	p = torch.zeros(NUM_SAMPLE_GEO_OUTPUT).float()
 	x = x.data.cpu().view(NUM_SAMPLE_GEO_OUTPUT, NDIM)
@@ -59,13 +62,14 @@ def compute_norm(x):
 	out = (torch.sqrt(p)).view(NUM_SAMPLE_GEO_OUTPUT)
 	return out
 
+# compute total energy of the geodesic path
 def sum_energy(z_collection):
-	# energy arr: a float tensor of size = (num_frames) where each index corresponds to energy of each point
-
+	
 	delta_e = torch.FloatTensor(1, NUM_SAMPLE_GEO_OUTPUT, NDIM).zero_().cuda()
 	for i in range(1, N-2):
 		delta_e += find_energy(z_collection[i-1].view(NUM_SAMPLE_GEO_OUTPUT, -1) ,z_collection[i].view(NUM_SAMPLE_GEO_OUTPUT, -1) ,z_collection[i+1].view(NUM_SAMPLE_GEO_OUTPUT, -1))
 
+	# energy_arr: a float tensor of size = (num_frames) where each index corresponds to energy of each point
 	energy_arr = compute_norm(Variable(delta_e))
 	energy_sum = (torch.sum(energy_arr)).item()
 
@@ -103,6 +107,7 @@ def geodesic_interpolation(z_collection):
 			etta_i = torch.nn.functional.normalize(etta_i, p = 2, dim = 1)
 			e1 = STEP_SIZE * etta_i
 
+			# update latent points in the direction of decreasing gradient of energy
 			z_collection[i] = z_collection[i] - e1.view(1, NUM_SAMPLE_GEO_OUTPUT, -1)
 		
 		energy = sum_energy(z_collection)
