@@ -1,90 +1,105 @@
-## Disentangling using Gaussian Processes and Rough Paths
+# Multiple disentangled features Gaussian Processes Variational AutoEncoder (MGP-VAE)
 
-#### Installing all required libraries and the dependencies
+This repository contains code for the paper <a href="https://arxiv.org/abs/2001.02408">Disentangling Multiple Features in Video Sequences using Gaussian Processes in Variational Autoencoders</a> accepted at the <i>16th European Conference on Computer Vision (ECCV 2020)</i>.
+
+### Abstract
+
+We introduce MGP-VAE, a variational autoencoder which uses Gaussian processes (GP) to model the latent space for the unsupervised learning of disentangled representations in video sequences. We improve upon previous work by establishing a framework by which multiple features, static or dynamic, can be disentangled. Specifically we use fractional Brownian motions (fBM) and Brownian bridges (BB) to enforce an inter-frame correlation structure in each independent channel, and show that varying this structure enables one to capture different factors of variation in the data. We demonstrate the quality of our representations with experiments on three publicly available datasets, and also quantify the improvement using a video prediction task. Moreover, we introduce a novel geodesic loss function which takes into account the curvature of the data manifold to improve learning. Our experiments show that the combination of the improved representations with the novel loss function enable MGP-VAE to outperform the baselines in video prediction.
+
+![MGP-VAE Network Architecture](Network.png)
+
+In case you find any of this useful, consider citing:
+
+```
+@article{Bhagat2020DisentanglingMF,
+  title={Disentangling Multiple Features in Video Sequences using Gaussian Processes in Variational Autoencoders.},
+  author={Sarthak Bhagat and Shagun Uppal and Vivian T. Yin and Nengli Lim},
+  journal={arXiv: Computer Vision and Pattern Recognition},
+  year={2020}
+}
+```
+
+## Installing Dependencies
+
+In order to install all required libraries, clone our repository and run the following command.
+
 ```
 pip install -r requirements.txt
-
 ```
 
-### Preparing Data
+## Preparing Data
 
-- Moving MNIST : Either download the prepared dataset from <a href="https://drive.google.com/file/d/1JAIpbRPqjbGyUltVbKnKYIxq8ig_aYfX/view?usp=sharing">this link</a>, or preparing dataset manually by running script create_data/moving_mnist/create_moving_mnist_data.py.
-- Dsprites : Either download prepared dataset from <a href="https://drive.google.com/file/d/15pkq1NaU1HyfDP68zgI0Tk9V8OIgv3RS/view?usp=sharing">this link</a>, or prepare dataset manually by first downloading data from <a href="https://github.com/deepmind/dsprites-dataset">this link</a> then placing images in folders dsprites-dataset/0/, dsprites-dataset/1/, and dsprites-dataset/2/ according to their classes (shape in this case) and then by running the script create_data/dsprites/create_dsprites_data.py.
+In order to prepare data for the following datasets, follow any of these commands.
 
-- - - - 
-NOTE:
-* For Moving MNIST, the number of frames is 5 and image size is 64x64, while for dsprites, the number of frames is 8 and image size is 32x32. 
-* For testing non-zero mean for GPs, use all latent dim. as bb2.
-- - - - 
+<b>Moving MNIST</b>
+1. Download the prepared dataset from <a href="https://drive.google.com/file/d/1JAIpbRPqjbGyUltVbKnKYIxq8ig_aYfX/view?usp=sharing">this link</a>.
+2. Prepare dataset manually by running script `./create_data/create_moving_mnist_data.py`.
 
-### FLAGS
+<b> Colored dSprites</b>
+1. Download the prepared dataset from <a href="">this link</a>.
+2. Prepare dataset manually by running script `./create_data/create_dsprites_data.py` for the Train Set and `./create_data/create_dsprites_data_test.py` for the Test Set.
 
-- cuda: Run the following code on a GPU
-- dataset: Dataset to be used for training/testing (gray_shapes/moving_mnist)
-- batch_size: Batch size for training
-- test_batch_size: Batch size for inference
-- image_size: Height and width of the image
-- num_channels: Number of channels in the images
-- num_frames: Number of frames in the video
-- ndim: Total dimension of latent space
-- fdim: Total number of features in latent space
-- fea1: First choice of Gaussian Process (options = frac_0.1, frac_0.9, bb, bb2, ou)
-- fea2: Second choice of Gaussian Process (options = frac_0.1, frac_0.9, bb, bb2, ou)
-- fea3: Third choice of Gaussian Process (options = frac_0.1, frac_0.9, bb, bb2, ou)
-- zero_mean_fea: Flag to indicate if GPs have zero mean (False=zero_mean)
-- mean_fea1_s: Starting Mean for fea1
-- mean_fea1_e: Ending Mean for fea1
-- mean_fea2_s: Starting Mean for fea2
-- mean_fea2_e: Ending Mean for fea2
-- mean_fea3_s: Starting Mean for fea3
-- mean_fea3_e: Ending Mean for fea3
-- beta: Coeff. of kl_loss in total_loss
-- lrate: Initial learning rate
-- beta_1: Beta 1 value for Adam optimizer
-- beta_2: Beta 2 value for Adam optimizer
-- encoder_save: Save model for encoder
-- decoder_save: Save model for decoder
-- load_saved: Flag to indicate if a saved model will be loaded
-- start_epoch: Flag to set the starting epoch for training
-- end_epoch: Flag to indicate the final epoch of training
-- is_training: Flag to indicate if it is training or inference
+## Training
 
-- - - - 
-### Training 
+Begin training the <i>MGP-VAE</i> model by running the following command.
 
-- Place the dataset directory in the Path_to_Repo/data/
-- Begin training using appropriate flags (NOTE: For training, use is_training=True).
 ```
-python train.py [-h] [--cuda CUDA] [--dataset DATASET]
-                [--batch_size BATCH_SIZE] [--is_training IS_TRAINING] 
-                [--image_size IMAGE_SIZE] [--num_channels NUM_CHANNELS]
-                [--num_frames NUM_FRAMES] [--buffer_size BUFFER_SIZE]
-                [--ndim NDIM] [--fdim FDIM] [--fea1 FEA1] [--fea2 FEA2]
-                [--fea3 FEA3] [--zero_mean_fea ZERO_MEAN_FEA]
-                [--mean_fea1_s MEAN_FEA1_S] [--mean_fea1_e MEAN_FEA1_E]
-                [--mean_fea2_s MEAN_FEA2_S] [--mean_fea2_e MEAN_FEA2_E]
-                [--mean_fea3_s MEAN_FEA3_S] [--mean_fea3_e MEAN_FEA3_E]
-                [--beta BETA] [--lrate LRATE] [--beta_1 BETA_1] [--beta_2 BETA_2]
-                [--encoder_save ENCODER_SAVE] [--decoder_save DECODER_SAVE]
-                [--log_file LOG_FILE] [--load_saved LOAD_SAVED]
-                [--start_epoch START_EPOCH] [--end_epoch END_EPOCH]
+python train.py --is_training True
 ```
-- - - - 
-### Testing
 
-- Inference Grid
+Customize the training by varying the following arguments, the details of which can be found in the `flags.py` script.
+
 ```
-python inference_grid.py
+--num_dim              Dimension of Entire Latent Space
+--num_fea              Total Number of Features
+--fea                  GP Priors on the Latent Dimensions as a List 
+                       (GPs must belong to the following set: {frac_0.1, frac_0.1, bb, bb2, ou}), details of which can be found in covariance_fns.py file.
+--zero_mean_fea        Whether Latent Priors have Zero Mean or not (False indicating Zero Mean)
+--mean_fea_s           Starting Mean of Each GP as a List (Valid only if zero_mean_fea == False)
+--mean_fea_e           Ending Mean of Each GP as a List (Valid only if zero_mean_fea == False)
+--beta                 KL-Divergence Weight in the Combined Loss Objective
 ```
-- Style Transfer 
+
+## Evaluation
+
+### Style Transfer
+
+In order to evaluate the trained model using feature swapping, run the following command.
+
 ```
-python style_transfer_across_videos.py
+python style_transfer.py
 ```
-- Latent Visualization
+
+### Latent Visualization
+
+In order to evaluation the trained model by plotting latent space visualizations, run the following command.
+
 ```
-python videowise_visualization.py [--num_points_visualization NUM_POINTS_VISUALIZATION]
+python latent_visualization.py --num_points_visualization 6
 ```
-- Interpolation (Linear)
+
+NOTE: This code is valid only for models where the dimension of each GP channel is fixed as 2, i.e. `num_dim // num_fea == 2`.
+
+## Geodesic Prediction 
+
+Begin training the geodesic prediction model for the task of future frame prediction by running the following script.
+
 ```
-python linear_interpolation.py [--threshold THRESHOLD] [--step_size STEP_SIZE] [--num_interpolation NUM_INTERPOLATION]
+python prediction_geodesic.py 
 ```
+
+Customize training by varying the following arguments.
+```
+--max_geo_iter         Maximum Number of Iterations of Geodesic Update Step
+--step_size            Step Size for Geodesic Update Step
+--threshold            Threshold for Geodesic Energy for Termination of Updation
+--num_epochs_geodesic  Number of Epochs for which Geodesic Prediction model is trained
+```
+
+## Contact
+If you face any problem in running this code, you can contact us at {sarthak16189, shagun16088}@iiitd.ac.in.
+
+## License
+Copyright (c) 2020 Sarthak Bhagat, Shagun Uppal, Vivian Yin, Nengli Lim.
+
+For license information, see LICENSE or http://mit-license.org
