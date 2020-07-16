@@ -65,7 +65,7 @@ Customize the training by varying the following arguments, the details of which 
 In order to evaluate the trained model using feature swapping, run the following command.
 
 ```
-python style_transfer_across_frames.py
+python style_transfer_across_videos.py
 ```
 
 ### Latent Visualization
