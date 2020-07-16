@@ -65,7 +65,7 @@ Customize the training by varying the following arguments, the details of which 
 In order to evaluate the trained model using feature swapping, run the following command.
 
 ```
-python style_transfer.py
+python style_transfer_across_frames.py
 ```
 
 ### Latent Visualization
@@ -73,7 +73,7 @@ python style_transfer.py
 In order to evaluation the trained model by plotting latent space visualizations, run the following command.
 
 ```
-python latent_visualization.py --num_points_visualization 6
+python videowise_visualization.py --num_points_visualization 6
 ```
 
 NOTE: This code is valid only for models where the dimension of each GP channel is fixed as 2, i.e. `num_dim // num_fea == 2`.
