@@ -2,9 +2,7 @@
 
 This repository contains code for the paper <a href="https://arxiv.org/abs/2001.02408">Disentangling Multiple Features in Video Sequences using Gaussian Processes in Variational Autoencoders</a> accepted at the <i>16th European Conference on Computer Vision (ECCV 2020)</i>.
 
-### Abstract
-
-We introduce MGP-VAE, a variational autoencoder which uses Gaussian processes (GP) to model the latent space for the unsupervised learning of disentangled representations in video sequences. We improve upon previous work by establishing a framework by which multiple features, static or dynamic, can be disentangled. Specifically we use fractional Brownian motions (fBM) and Brownian bridges (BB) to enforce an inter-frame correlation structure in each independent channel, and show that varying this structure enables one to capture different factors of variation in the data. We demonstrate the quality of our representations with experiments on three publicly available datasets, and also quantify the improvement using a video prediction task. Moreover, we introduce a novel geodesic loss function which takes into account the curvature of the data manifold to improve learning. Our experiments show that the combination of the improved representations with the novel loss function enable MGP-VAE to outperform the baselines in video prediction.
+MGP-VAE is a variational autoencoder which uses Gaussian processes (GP) to model the latent space for the unsupervised learning of disentangled representations in video sequences. We improve upon previous work by establishing a framework by which multiple features, static or dynamic, can be disentangled. Specifically we use fractional Brownian motions (fBM) and Brownian bridges (BB) to enforce an inter-frame correlation structure in each independent channel, and show that varying this structure enables one to capture different factors of variation in the data. In addition, one can also improve learning by employing a novel geodesic loss function which takes into account the curvature of the data manifold. 
 
 ![MGP-VAE Network Architecture](Network.png)
 
