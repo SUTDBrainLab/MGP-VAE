@@ -11,7 +11,7 @@ In case you find any of this useful, consider citing:
 ```
 @article{Bhagat2020DisentanglingMF,
   title={Disentangling Multiple Features in Video Sequences using Gaussian Processes in Variational Autoencoders.},
-  author={Sarthak Bhagat and Shagun Uppal and Vivian T. Yin and Nengli Lim},
+  author={Sarthak Bhagat and Shagun Uppal and Vivian Yin and Nengli Lim},
   journal={arXiv: Computer Vision and Pattern Recognition},
   year={2020}
 }
