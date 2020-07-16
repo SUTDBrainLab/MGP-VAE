@@ -1,8 +1,8 @@
 # Multiple disentangled features Gaussian Processes Variational AutoEncoder (MGP-VAE)
 
-This repository contains code for the paper <a href="https://arxiv.org/abs/2001.02408">Disentangling Multiple Features in Video Sequences using Gaussian Processes in Variational Autoencoders</a> accepted at the <i>16th European Conference on Computer Vision (ECCV 2020)</i>.
+This repository contains code for the paper <a href="https://arxiv.org/abs/2001.02408">Disentangling Multiple Features in Video Sequences using Gaussian Processes in Variational Autoencoders</a>, accepted at the <i>16th European Conference on Computer Vision (ECCV 2020)</i>.
 
-MGP-VAE is a variational autoencoder which uses Gaussian processes (GP) to model the latent space for the unsupervised learning of disentangled representations in video sequences. We improve upon previous work by establishing a framework by which multiple features, static or dynamic, can be disentangled. Specifically we use fractional Brownian motions (fBM) and Brownian bridges (BB) to enforce an inter-frame correlation structure in each independent channel, and show that varying this structure enables one to capture different factors of variation in the data. In addition, one can also improve learning by employing a novel geodesic loss function which takes into account the curvature of the data manifold. 
+MGP-VAE is a variational autoencoder which uses Gaussian processes (GP) to model the latent space for the unsupervised learning of disentangled representations in video sequences. We establish a framework by which multiple features, static or dynamic, can be disentangled; specifically we use fractional Brownian motions (fBM) and Brownian bridges (BB) to enforce an inter-frame correlation structure in each independent channel, and show that varying this structure enables one to capture different factors of variation in the data. In addition, one can also improve learning by employing a novel geodesic loss function which takes into account the curvature of the data manifold. 
 
 ![MGP-VAE Network Architecture](Network.png)
 
