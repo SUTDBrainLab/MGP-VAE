@@ -34,7 +34,7 @@ In order to prepare data for the following datasets, follow any of these command
 2. Prepare dataset manually by running script `./create_data/create_moving_mnist_data.py`.
 
 <b> Colored dSprites</b>
-1. Download the prepared dataset from <a href="">this link</a>.
+1. Download the prepared dataset from <a href="https://drive.google.com/file/d/15pkq1NaU1HyfDP68zgI0Tk9V8OIgv3RS/view?usp=sharing">this link</a>.
 2. Prepare dataset manually by running script `./create_data/create_dsprites_data.py` for the Train Set and `./create_data/create_dsprites_data_test.py` for the Test Set.
 
 ## Training
