@@ -53,8 +53,8 @@ Customize the training by varying the following arguments, the details of which 
 --fea                  GP Priors on the Latent Dimensions as a List 
                        (GPs must belong to the following set: {frac_0.1, frac_0.1, bb, bb2, ou}), details of which can be found in covariance_fns.py file.
 --zero_mean_fea        Whether Latent Priors have Zero Mean or not (False indicating Zero Mean)
---mean_fea_s           Starting Mean of Each GP as a List (Valid only if zero_mean_fea == False)
---mean_fea_e           Ending Mean of Each GP as a List (Valid only if zero_mean_fea == False)
+--mean_fea_s           Starting Mean of Each GP as a List (Valid only if zero_mean_fea == True)
+--mean_fea_e           Ending Mean of Each GP as a List (Valid only if zero_mean_fea == True)
 --beta                 KL-Divergence Weight in the Combined Loss Objective
 ```
 
