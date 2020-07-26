@@ -9,10 +9,10 @@ MGP-VAE is a variational autoencoder which uses Gaussian processes (GP) to model
 In case you find any of this useful, consider citing:
 
 ```
-@article{Bhagat2020DisentanglingMF,
+@inproceedings{Bhagat2020DisentanglingMF,
   title={Disentangling Multiple Features in Video Sequences using Gaussian Processes in Variational Autoencoders.},
   author={Sarthak Bhagat and Shagun Uppal and Vivian Yin and Nengli Lim},
-  journal={arXiv: Computer Vision and Pattern Recognition},
+  booktitle={European Conference on Computer Vision (ECCV)},
   year={2020}
 }
 ```
