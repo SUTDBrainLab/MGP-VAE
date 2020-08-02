@@ -15,7 +15,7 @@ In case you find any of this useful, consider citing:
 ```
 @inproceedings{Bhagat2020DisentanglingMF,
   title={Disentangling Multiple Features in Video Sequences using Gaussian Processes in Variational Autoencoders.},
-  author={Sarthak Bhagat and Shagun Uppal and Vivian Yin and Nengli Lim},
+  author={Sarthak Bhagat and Shagun Uppal and Zhuyun Yin and Nengli Lim},
   booktitle={European Conference on Computer Vision (ECCV)},
   year={2020}
 }
@@ -102,6 +102,6 @@ Customize training by varying the following arguments.
 If you face any problem in running this code, you can contact us at {sarthak16189, shagun16088}@iiitd.ac.in.
 
 ## License
-Copyright (c) 2020 Sarthak Bhagat, Shagun Uppal, Vivian Yin, Nengli Lim.
+Copyright (c) 2020 Sarthak Bhagat, Shagun Uppal, Zhuyun Yin, Nengli Lim.
 
 For license information, see LICENSE or http://mit-license.org
