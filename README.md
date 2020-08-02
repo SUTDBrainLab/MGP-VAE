@@ -1,4 +1,8 @@
-# Multiple disentangled features Gaussian Processes Variational AutoEncoder (MGP-VAE)
+# Multi-disentangled-features Gaussian Processes Variational AutoEncoder (MGP-VAE)
+
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/disentangling-representations-using-gaussian/video-prediction-on-moving-mnist)](https://paperswithcode.com/sota/video-prediction-on-moving-mnist?p=disentangling-representations-using-gaussian)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/disentangling-representations-using-gaussian/video-prediction-on-colored-dsprites)](https://paperswithcode.com/sota/video-prediction-on-colored-dsprites?p=disentangling-representations-using-gaussian)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/disentangling-representations-using-gaussian/video-prediction-on-sprites)](https://paperswithcode.com/sota/video-prediction-on-sprites?p=disentangling-representations-using-gaussian)
 
 This repository contains code for the paper <a href="https://arxiv.org/abs/2001.02408">Disentangling Multiple Features in Video Sequences using Gaussian Processes in Variational Autoencoders</a>, accepted at the <i>16th European Conference on Computer Vision (ECCV 2020)</i>.
 
