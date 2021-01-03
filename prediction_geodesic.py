@@ -41,7 +41,7 @@ def find_energy(z0, z1, z2):
 def find_etta_i(z0, z1, z2):
 
 	z0 = z0.view(NUM_SAMPLE_GEO_OUTPUT, -1).data
-	z1 = Variable(z0, requires_grad = True)
+	z1 = Variable(z1, requires_grad = True)
 	z2 = z2.view(NUM_SAMPLE_GEO_OUTPUT, -1)
 
 	dec = decoder(torch.cat([Z_remaining, z1.view(1, NUM_SAMPLE_GEO_OUTPUT, -1)], 1))
