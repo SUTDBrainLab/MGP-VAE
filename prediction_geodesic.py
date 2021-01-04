@@ -66,7 +66,7 @@ def compute_norm(x):
 def sum_energy(z_collection):
 	
 	delta_e = torch.FloatTensor(1, NUM_SAMPLE_GEO_OUTPUT, NDIM).zero_().cuda()
-	for i in range(1, N-2):
+	for i in range(1, N):
 		delta_e += find_energy(z_collection[i-1].view(NUM_SAMPLE_GEO_OUTPUT, -1) ,z_collection[i].view(NUM_SAMPLE_GEO_OUTPUT, -1) ,z_collection[i+1].view(NUM_SAMPLE_GEO_OUTPUT, -1))
 
 	# energy_arr: a float tensor of size = (num_frames) where each index corresponds to energy of each point
