@@ -79,7 +79,7 @@ In order to evaluation the trained model by plotting latent space visualizations
 python videowise_visualization.py --num_points_visualization 6
 ```
 
-NOTE: This code is valid only for models where the dimension of each GP channel is fixed as 2, i.e. `num_dim // num_fea == 2`.
+NOTE: This code is valid only for models where the dimension of each GP channel is fixed as 2, i.e. `num_dim // num_fea == 2`. Also, while running the evaluation scripts, make sure to turn the is_training flag False.
 
 ## Geodesic Prediction 
 
