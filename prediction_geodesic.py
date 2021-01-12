@@ -48,7 +48,7 @@ def find_etta_i(z0, z1, z2):
 	v = decoder(torch.cat([Z_remaining, z2.view(1, NUM_SAMPLE_GEO_OUTPUT, -1)], 1)) - \
 	2*dec + decoder(torch.cat([Z_remaining, z0.view(1, NUM_SAMPLE_GEO_OUTPUT, -1)], 1))
 	dec.backward(v, retain_graph=True)
-	etta = -dt * z1.grad
+	etta = -N * z1.grad
 	return etta
 
 # computes L2 norm
