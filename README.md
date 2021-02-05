@@ -1,5 +1,6 @@
 # Multi-disentangled-features Gaussian Processes Variational AutoEncoder (MGP-VAE)
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FSUTDBrainLab%2FMGP-VAE&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/disentangling-representations-using-gaussian/video-prediction-on-colored-dsprites)](https://paperswithcode.com/sota/video-prediction-on-colored-dsprites?p=disentangling-representations-using-gaussian)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/disentangling-representations-using-gaussian/video-prediction-on-sprites)](https://paperswithcode.com/sota/video-prediction-on-sprites?p=disentangling-representations-using-gaussian)
 
